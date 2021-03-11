@@ -14,6 +14,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
 import com.emp.model.vo.Emp;
 
@@ -22,10 +23,15 @@ public class EmpDao {
 	Map<String, String> property = new HashMap<>();
 	List<Emp> empList = new ArrayList<>();
 	
+	Properties pro = new Properties();
+	Connection con = null;
+	Statement stat = null;
+	ResultSet rs = null;
 	
 	
 	
 	private void prop()	{
+		
 		File f = new File("/Users/sanghyeonkim/Downloads/JDBC/.ignorefiles/Prop_scot.properties");
 		
 			try(FileInputStream fis = new FileInputStream(f);
@@ -40,8 +46,6 @@ public class EmpDao {
 	}
 	
 	private Statement Driv() {
-		Connection con = null;
-		Statement stat = null;
 		
 		
 		prop();
@@ -66,7 +70,6 @@ public class EmpDao {
 	
 	
 	public List<Emp> searchAll() {
-		ResultSet rs = null;
 		String query = "SELECT * FROM EMP";
 		try {
 			rs = Driv().executeQuery(query);
@@ -94,7 +97,12 @@ public class EmpDao {
 				if(rs!=null && !rs.isClosed()) {
 					rs.close();
 				}
-				
+				if(stat!=null && !stat.isClosed()) {
+					stat.close();
+				}
+				if(con!=null & !con.isClosed()) {
+					con.close();
+				}
 				
 				
 			} catch (SQLException e) {
