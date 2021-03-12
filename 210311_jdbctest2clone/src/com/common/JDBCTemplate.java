@@ -19,7 +19,7 @@ public class JDBCTemplate {
 	static String ip = "";
 	static String id = "";
 	static String pw = "";
-	
+	static String driver = "";
 	
 	public static Connection getConnection()	{
 		Properties prop = new Properties();
@@ -32,9 +32,9 @@ public class JDBCTemplate {
 					ip = prop.getProperty("ip");
 					id = prop.getProperty("id");
 					pw = prop.getProperty("pw");
+					driver = prop.getProperty("driver");
 					
-					
-					Class.forName("oracle.jdbc.driver.OracleDriver");
+					Class.forName(driver);
 					
 					conn = DriverManager.getConnection(ip, id, pw);
 					conn.setAutoCommit(false);
