@@ -2,6 +2,8 @@ package com.member.model.dao;
 
 import static com.common.JDBCTemplate.close;
 
+import java.io.FileReader;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
+import java.util.Properties;
 import java.util.Set;
 
 import com.member.model.vo.Member;
@@ -29,13 +31,28 @@ public class MemberDao {
 	
 	
 	
+	private Properties prop = new Properties();
+	
+	public MemberDao() {
+		try {
+			prop.load(new FileReader("resources/sql/member_sql.properties"));
+			
+		}catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	
+	
+	
 	public List<Member> queryAll(Connection conn) {
 		
 		
 		
 		try {
-				 sql =  "SELECT * FROM MEMBER";	
-				
+//				 sql =  "SELECT * FROM MEMBER";	
+				sql = prop.getProperty("selectAll");
 //				Statement stmt = conn.createStatement();
 //				ResultSet rs = stmt.executeQuery(sql);
 				
@@ -94,10 +111,12 @@ public class MemberDao {
 
 			try {
 				
-				pstmt = conn.prepareStatement("select * from member where MEMBER_NAME like (?)");
+//				pstmt = conn.prepareStatement("select * from member where MEMBER_NAME like (?)");
+//				pstmt.setString(1, "%"+name+"%");
+//				
+				sql = prop.getProperty("selectName");
+				pstmt = conn.prepareStatement(sql);
 				pstmt.setString(1, "%"+name+"%");
-				
-				
 				
 				// 두 번째 방법은 (devel에 맞춰서)
 //				pstmt = conn.prepareStatement("select * from member where MEMBER_NAME like ('%'||?||'%')");
@@ -160,7 +179,9 @@ public class MemberDao {
 		col = temp.getKey();
 		val = temp.getValue();
 		
-		sql = "select * from member where "+col+" like ?";
+//		sql = "select * from member where "+col+" like ?";
+		sql = prop.getProperty("choiceSelect");
+		sql= sql.replace("#", col);
 		
 		try {
 				pstmt = conn.prepareStatement(sql);
