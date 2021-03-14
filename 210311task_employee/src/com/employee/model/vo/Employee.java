@@ -4,7 +4,8 @@ import java.util.Date;
 
 public class Employee {
 	private String empId, empName, empNo, email, phone,deptCode,jobCode,salLevel;
-	private int salary, bonus;
+	private int salary;
+	private double bonus;
 	private String managerId;
 	private Date hireDate, entDate;
 	private String entYn;
@@ -16,7 +17,7 @@ public class Employee {
 
 
 	public Employee(String empId, String empName, String empNo, String email, String phone, String deptCode,
-			String jobCode, String salLevel, int salary, int bonus, String managerId, Date hireDate, Date entDate,
+			String jobCode, String salLevel, int salary, double bonus, String managerId, Date hireDate, Date entDate,
 			String entYn) {
 		this.empId = empId;
 		this.empName = empName;
@@ -125,12 +126,12 @@ public class Employee {
 	}
 
 
-	public int getBonus() {
+	public double getBonus() {
 		return bonus;
 	}
 
 
-	public void setBonus(int bonus) {
+	public void setBonus(double bonus) {
 		this.bonus = bonus;
 	}
 
@@ -172,6 +173,15 @@ public class Employee {
 
 	public void setEntYn(String entYn) {
 		this.entYn = entYn;
+	}
+
+
+	@Override
+	public String toString() {
+		return  empId + " " + empName + " " + empNo + " " + email
+				+ " " + phone + " " + deptCode + " " + jobCode + " " + salLevel
+				+ " "+ salary + " " + bonus + " " + managerId + " " + hireDate
+				+ " " + entDate + " " + entYn;
 	}
 	
 	

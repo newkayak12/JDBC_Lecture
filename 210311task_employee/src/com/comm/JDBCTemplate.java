@@ -22,16 +22,16 @@ public class JDBCTemplate {
 	
 		
 		public static Connection getConnection() {
+			Properties prop = new Properties();
 			Connection conn = null; 
 			
-			Properties prop = new Properties();
 			
 			try {
 					prop.load(new FileInputStream("/Users/sanghyeonkim/Downloads/JDBC/.ignorefiles/Prop_db.properties"));
-					driver = prop.getProperty(driver);
-					ip = prop.getProperty(ip);
-					id = prop.getProperty(id);
-					pw = prop.getProperty(pw);
+					driver = prop.getProperty("driver");
+					ip = prop.getProperty("ip");
+					id = prop.getProperty("id");
+					pw = prop.getProperty("pw");
 					
 				Class.forName(driver);
 				conn = DriverManager.getConnection(ip, id, pw);
