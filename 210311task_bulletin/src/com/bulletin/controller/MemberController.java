@@ -1,44 +1,55 @@
 package com.bulletin.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.bulletin.abstView.ControllerAbstract;
+import com.bulletin.model.service.MemberService;
+import com.bulletin.model.vo.Member;
 import com.bulletin.view.MemberView;
 
 public class MemberController extends ControllerAbstract {
-
+	List<Member> mList = new ArrayList<>();
+	MemberView view ;
 	
 	@Override
 	public void view(ControllerAbstract con) {
-		new MemberView().mainView(con);
+		view = new MemberView();
+		view.mainView(con);
 	}
 
 	@Override
 	public void queryAll() {
-		// TODO Auto-generated method stub
-		
+		mList = new MemberService().queryAll();
+		view.printAll(mList);
 	}
 
 	@Override
 	public void queryConditionId() { //id
-		// TODO Auto-generated method stub
-		
+		String ref = view.queryConditionIdView();
+		mList = new MemberService().queryConditionId(ref);
+		view.printAll(mList);
 	}
 
 	@Override
 	public void queryConditionTitle() { //name
-		// TODO Auto-generated method stub
-		
+		String ref = view.queryConditionNameView();
+		mList = new MemberService().queryConditionTitle(ref);
+		view.printAll(mList);
 	}
 
 	@Override
 	public void queryInsert() {
-		// TODO Auto-generated method stub
-		
+		Member ref = view.queryInsertView();
+		int result = new MemberService().queryInsert(ref);
+		view.printMsg(result, "insert");
 	}
 
 	@Override
 	public void queryModify() {
-		// TODO Auto-generated method stub
-		
+		String[] ref = view.queryModify();
+		int result = new MemberService().queryModify(ref);
+		view.printMsg(result, "modify");
 	}
 
 	@Override
