@@ -5,11 +5,11 @@ import com.employee.model.vo.Department;
 import com.employee.view.MainView;
 
 public class DepartmentController {
-	MainView view;
+	MainView view = new MainView();
 	DepartmentService dServ = new DepartmentService();
 	Department dept = null;
-	public void MainView() {
-		view = new MainView();
+	
+	public void mainView() {
 		view.deptManage();
 		
 	}
@@ -19,21 +19,32 @@ public class DepartmentController {
 	public void deptinsert() {
 		int result =0;
 		dept = new MainView().deptinsert();
-		System.out.println(dept + "con");
 		result = dServ.deptinsert(dept);
+		view.printMsg(result, "insertDep");
 	}
 
 
 
 	public void deptMoid() {
-		System.out.println("modi");
+		int result = 0;
+		String[] temp = new MainView().deptmoid();
+		result = dServ.deptmoid(temp);
+			System.out.println(result+"con");
+		
+		view.printMsg(result, "updateDep");
+		
 		
 	}
+	
+	
 
 
 
 	public void deptDel() {
-		System.out.println("del");
+		int result = 0;
+		String ref = new MainView().deptDel();
+		result = dServ.deptDel(ref);
+		view.printMsg(result, "deleteDep");
 		
 	}
 

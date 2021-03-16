@@ -29,4 +29,35 @@ public class DepartmentService {
 		
 	}
 
+
+	public int deptmoid(String[] temp) {
+		int result = 0;
+		conn = getConnection();
+		
+		result =dDao.deptmoid(conn, temp);
+		
+		commit(conn);
+		
+		close(conn);
+		System.out.println(result+"serv");
+		return result;
+		
+	}
+
+
+	public int deptDel(String ref) {
+		int result = 0;
+		conn = getConnection();
+		
+		result =dDao.deptDel(conn,ref);
+		
+		commit(conn);
+		
+		close(conn);
+		
+		return result;
+		
+	
+	}
+
 }

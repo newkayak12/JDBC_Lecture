@@ -58,4 +58,47 @@ public class DepartmentDao {
 		return result; 
 	}
 
+	public int deptmoid(Connection conn, String[] temp) {
+		
+		int result = 0;
+		
+			try {
+					query = prop.getProperty("DEPUPD");
+					query = query.replace("@", temp[0]);
+					query = query.replace("#", temp[1]);
+					query = query.replace("$", temp[2]);
+					pstmt=conn.prepareStatement(query);
+					
+					
+					result = pstmt.executeUpdate();	
+			
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+				close(pstmt);
+			}
+		System.out.println(result+"dao");
+		return result; 
+		
+	}
+
+	public int deptDel(Connection conn, String ref) {
+		int result = 0;
+		
+			try {
+					query = prop.getProperty("DEPDEL");
+					query = query + "'"+ref+"'";
+					pstmt = conn.prepareStatement(query);
+					result = pstmt.executeUpdate();
+					
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+				
+		
+		return result;
+	}
+
 }

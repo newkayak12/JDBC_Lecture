@@ -5,13 +5,15 @@ import java.util.Scanner;
 
 import com.employee.controller.DepartmentController;
 import com.employee.controller.EmployeeController;
+import com.employee.controller.JobController;
 import com.employee.model.vo.Department;
 import com.employee.model.vo.Employee;
+import com.employee.model.vo.Job;
 
 public class MainView {
 	Scanner scn = new Scanner(System.in);
 	EmployeeController employeeController = null;
-	
+	String [] temp = null;
 	
 	
 	
@@ -53,11 +55,11 @@ public class MainView {
 						
 						break;
 					case 6:
-						new DepartmentController().MainView();
+						new DepartmentController().mainView();
 						
 						break;
 					case 7:
-						employeeController.jobManage();
+						new JobController().mainView();
 						break;
 					default:
 						
@@ -113,15 +115,39 @@ public class MainView {
 	public void printMsg(int i, String type) {
 		if(type.equals("insert")) {
 			
-			System.out.println("행 "+i +" 개가 삽입되었습니다.");
+			System.out.println("행 "+i +" 개가 삽입되었습니다._Employee");
 			
 		} else if(type.equals("delete")) {
 			
-			System.out.println("행 "+i +" 개가 삭제되었습니다.");
+			System.out.println("행 "+i +" 개가 삭제되었습니다._Employee");
 			
 		} else if(type.equals("update")) {
 			
-			System.out.println("행 "+i +" 개가 삭제되었습니다.");
+			System.out.println("행 "+i +" 개가 삭제되었습니다._Employee");
+			
+		} else if(type.equals("insertDep")) {
+			
+			System.out.println("행 "+i +" 개가 삽입되었습니다._Department");
+			
+		} else if(type.equals("deleteDep")) {
+			
+			System.out.println("행 "+i +" 개가 삭제되었습니다._Department");
+			
+		} else if(type.equals("updateDep")) {
+			
+			System.out.println("행 "+i +" 개가 수정되었습니다._Department");
+			
+		}else if(type.equals("insertJob")) {
+			
+			System.out.println("행 "+i +" 개가 삽입되었습니다._Job");
+			
+		} else if(type.equals("deleteJob")) {
+			
+			System.out.println("행 "+i +" 개가 삭제되었습니다._Job");
+			
+		} else if(type.equals("updateJob")) {
+			
+			System.out.println("행 "+i +" 개가 수정되었습니다._Job");
 			
 		}
 		
@@ -341,6 +367,13 @@ public class MainView {
 		return scn.nextInt();
 	}
 
+	
+
+	
+
+	
+	///////////////////////////
+	
 	public void deptManage() {
 		DepartmentController dc = new DepartmentController();
 			System.out.println("부서관리");
@@ -371,27 +404,126 @@ public class MainView {
 //		 1. 등록, 수정, 삭제
 		
 	}
-
-	public void jobManage() {
-		// TODO Auto-generated method stub
-		
-//		 1 등록, 부서 수정, 삭제
-	}
-
 	
-	///////////////////////////
 	public Department deptinsert() {
-			System.out.println("부서코드 입력 : ");
+			System.out.println("1. 부서코드 입력 : ");
 		String id = scn.next();
-			System.out.println("부서명 입력 : ");
+			System.out.println("2. 부서명 입력 : ");
 		String title = scn.next();
-			System.out.println("지역코드 입력 : ");
+			System.out.println("3. 지역코드 입력 : ");
 		String location = scn.next();
 		
 		Department dept = new Department(id, title, location);
-		System.out.println(dept+"main");
 		
 		return dept;
+		
+	}
+
+	public String[] deptmoid() {
+		temp = new String [3];
+			System.out.println(" 수정할 사항을 고르세요 ");
+			System.out.println("1. 부서코드");
+			System.out.println("2. 부서명");
+			System.out.println("3. 지역코드");
+		int choice = scn.nextInt();
+			
+			switch(choice) {
+				case 1:
+					temp[0] = "Dept_id";
+						System.out.println("id를 입력하세요");
+					temp[2] = "'"+scn.next()+"'";
+						System.out.println(" 수정 사항을 입력하세요 ");
+					temp[1] = "'"+scn.next()+"'";
+					
+					break;
+				case 2:
+					temp[0] = "Dept_title";
+						System.out.println("id를 입력하세요");
+					temp[2] = scn.next();
+						System.out.println(" 수정 사항을 입력하세요 ");
+					temp[1] = scn.next();
+					break;
+				case 3:
+					temp[0] = "location_id";
+						System.out.println("id를 입력하세요");
+					temp[2] = scn.next();
+						System.out.println(" 수정 사항을 입력하세요 ");
+					temp[1] = scn.next();
+					break;
+			
+			}
+				
+		return temp;
+	}
+
+	public String deptDel() {
+		System.out.println("삭제할 대상의 id를 입력하세요");
+		return scn.next();
+	}
+////////////////////////job
+	
+	public void jobManage() {
+		JobController jc = new JobController();
+		System.out.println("직책관리");
+		System.out.println("1. 등록");
+		System.out.println("2. 수정");
+		System.out.println("3. 삭제");
+	int input = scn.nextInt();
+		
+		switch(input) {
+		
+			case 1: 
+				jc.jobinsert();
+				
+				break;
+				
+			case 2: 
+				jc.jobMoid();
+				
+				break;
+				
+			case 3: 
+				
+				jc.jobDel();
+				
+				break;
+		
+		}
+		
+//		 1 등록, 부서 수정, 삭제
+	}
+	
+	
+	public Job jobInsert() {
+		
+			System.out.println("1. 직책명 입력 : ");
+		String code = scn.next();
+			System.out.println("2. 직책이 입력 : ");
+		String name = scn.next();
+		
+		
+		Job job = new Job(code, name);
+		
+		return job;
+		
+	}
+
+	public String[] jobMoid() {
+		String[] ref = new String [2];
+			System.out.println("직책 코드를 입력하세요");
+		ref[0] = "'"+scn.next()+"'";
+			System.out.println("수정할 직책 명을 입력하세요");
+		ref[1] = "'"+scn.next()+"'";
+		
+		return ref;
+	}
+
+	public String jobDel() {
+		String ref = null;
+			System.out.println("삭제할 직책 코드를 입력하세요");
+		ref= "'"+scn.next()+"'";
+		
+		return ref;
 		
 	}
 }
