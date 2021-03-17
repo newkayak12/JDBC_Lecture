@@ -54,8 +54,9 @@ public class MemberController extends ControllerAbstract {
 
 	@Override
 	public void queryDelete() {
-		// TODO Auto-generated method stub
-		
+		String ref = view.queryDelete();
+		int result = new MemberService().queryDelete(ref);
+		view.printMsg(result, "delete");
 	}
 
 	

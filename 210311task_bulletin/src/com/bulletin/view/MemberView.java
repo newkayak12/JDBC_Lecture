@@ -9,7 +9,7 @@ import com.bulletin.abstView.ViewAbstract;
 import com.bulletin.controller.MemberController;
 import com.bulletin.model.vo.Member;
 
-public class MemberView extends ViewAbstract{
+public class MemberView extends ViewAbstract <Member>{
 	private Scanner scn = new Scanner(System.in);
 	
 	@Override
@@ -30,6 +30,7 @@ public class MemberView extends ViewAbstract{
 					switch(choice) {
 						case 0:
 							new MainView().mainTheme();
+							scn.close();
 							return;
 						case 1:
 							mCon.queryAll();
@@ -103,6 +104,7 @@ public class MemberView extends ViewAbstract{
 		Date now = new Date();
 		String enroll = now.toString();
 		
+		
 		Member ref = new Member(0, id, pwd, name, email, address, phone, enroll);
 		
 		return ref;
@@ -147,6 +149,11 @@ public class MemberView extends ViewAbstract{
 			}
 		
 		return ref;
+	}
+
+	public String queryDelete() {
+		System.out.println("삭제할 id를 입력하세요");
+		return scn.next();
 	}
 	
 }

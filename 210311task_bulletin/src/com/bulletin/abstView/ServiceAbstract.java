@@ -4,15 +4,15 @@ import java.util.List;
 
 import com.bulletin.model.vo.Member;
 
-public abstract class ServiceAbstract {
+public abstract class ServiceAbstract <T> {
 	
-	public abstract List<Member> queryAll();
+	public abstract List<T> queryAll();
 	
-	public abstract List<Member> queryConditionId(String ref);
+	public abstract List<T> queryConditionId(String ref);
 	
-	public abstract List<Member> queryConditionTitle(String ref);
+	public abstract List<T> queryConditionTitle(String ref);
 	
-	public abstract int queryInsert(Member ref);
+	public abstract int queryInsert(T ref);
 	
 	public abstract int queryModify(String[] ref);
 	

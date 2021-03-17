@@ -1,14 +1,12 @@
 package com.bulletin.abstView;
 
-import java.util.List;
+import java.util.*;
 
-import com.bulletin.model.vo.Member;
-
-public abstract class ViewAbstract {
+public abstract class  ViewAbstract <T> {
 	
 	public abstract void mainView(ControllerAbstract cA);
 	
-	public abstract void printAll(List<Member> ref);
+	public abstract void printAll(List<T> ref);
 	
 	public abstract void printMsg(int result, String ref);
 }

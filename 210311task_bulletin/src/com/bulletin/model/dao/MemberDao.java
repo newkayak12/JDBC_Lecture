@@ -7,7 +7,7 @@ import static com.comm.JDBCTEMPLATE.*;
 import com.bulletin.abstView.DaoAbstract;
 import com.bulletin.model.vo.Member;
 
-public class MemberDao extends DaoAbstract {
+public class MemberDao extends DaoAbstract <Member> {
 	private List<Member> mList = new ArrayList<>();
 	private Properties prop = new Properties();
 	private PreparedStatement pstmt = null;
@@ -145,7 +145,7 @@ public class MemberDao extends DaoAbstract {
 	public int queryInsert(Connection conn, Member ref) {
 		int result = 0;
 		query = prop.getProperty("queryInsert");
-		query = query + "seq_mem.nextval, ?, ?, ?,  ?, ?, ?,  ?)";
+		query += "seq_mem.nextval, ?, ?, ?,  ?, ?, ?, sysdate)";
 		
 			try {
 				pstmt = conn.prepareStatement(query);
@@ -156,9 +156,10 @@ public class MemberDao extends DaoAbstract {
 				pstmt.setString(4, ref.getEmail());
 				pstmt.setString(5, ref.getAddress());
 				pstmt.setString(6, ref.getPhone());
-				pstmt.setString(7, ref.getEnrollDate());
+//				pstmt.setString(7, ref.getEnrollDate()); //여기서 문제인가봄
 				
 				result = pstmt.executeUpdate();
+				
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -198,7 +199,16 @@ public class MemberDao extends DaoAbstract {
 	@Override
 	public int queryDelete(Connection conn, String ref) {
 		int result = 0;
+		query = prop.getProperty("queryDelete");
+		query += "'"+ref+"'";
 		
+			try {
+					pstmt = conn.prepareStatement(query);
+					result = pstmt.executeUpdate();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		
 		return result;
 		

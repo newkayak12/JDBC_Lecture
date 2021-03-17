@@ -11,13 +11,14 @@ import com.bulletin.abstView.ServiceAbstract;
 import com.bulletin.model.dao.MemberDao;
 import com.bulletin.model.vo.Member;
 
-public class MemberService extends ServiceAbstract{
+public class MemberService extends ServiceAbstract <Member>{
 	Connection conn = null;
 	MemberDao mDao = new MemberDao();
 	List<Member> mList = new ArrayList<>();
 	
 	@Override
 	public List<Member> queryAll() {
+		mList.clear();
 		conn = getConnection();
 		mList = mDao.queryAll(conn);
 		close(conn);
@@ -28,6 +29,7 @@ public class MemberService extends ServiceAbstract{
 
 	@Override
 	public List<Member> queryConditionId(String ref) {
+		mList.clear();
 		conn = getConnection();
 		mList = mDao.queryConditionId(conn, ref);
 		close(conn);
@@ -39,6 +41,7 @@ public class MemberService extends ServiceAbstract{
 
 	@Override
 	public List<Member> queryConditionTitle(String ref) {
+		mList.clear();
 		conn = getConnection();
 		mList = mDao.queryConditionTitle(conn, ref);
 		close(conn);
@@ -69,7 +72,10 @@ public class MemberService extends ServiceAbstract{
 
 	@Override
 	public int queryDelete(String ref) {
+		
 		int result = 0;
+		conn = getConnection();
+		result = mDao.queryDelete(conn, ref);
 		
 		
 		return result;
